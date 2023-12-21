@@ -133,36 +133,44 @@ After changes any configuration file we need to restart our prometheus
 sudo systemctl restart prometheus.service
 
 Step #3:Install Grafana on Ubuntu 22.04 LTS
-Download the Grafana GPG key with wget, then pipe the output to apt-key. This will add the key to your APT installation’s list of trusted keys, which will allow you to download and verify the GPG-signed Grafana package:
+Add the Grafana YUM repo using nano
 
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo nano /etc/yum.repos.d/grafana.repo
+Add the below Grafana OSS repo into it, if you want use Enterprise version then visit Grafana Official Page
 
-Next, add the Grafana repository to your APT sources:
+[grafana]
+name=grafana
+baseurl=https://packages.grafana.com/enterprise/rpm
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+update the system packages to take effect
 
+sudo yum update
+Now lets Install Grafana using below command
 
-sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
-Refresh your APT cache to update your package lists:
-
-sudo apt update
-You can now proceed with the installation:
-
-sudo apt install grafana
-Once Grafana is installed, use systemctl to start the Grafana server:
+sudo yum install grafana
+Now start the Grafana service using below command
 
 sudo systemctl start grafana-server
-Next, verify that Grafana is running by checking the service’s status:
+Verify the Grafana Service Status using below command
 
 sudo systemctl status grafana-server
-sudo systemctl enable grafana-server
-Jenkins Monitoring with Prometheus and Grafana 3
-Lets Access in browser:
+Now finally enable the Grafana service which will automatically start the Grafana on boot
 
-<instance_ip>:3000
-Output:
+sudo systemctl enable grafana-server.service
+To access Grafana Dashboard open your favorite browser, type server IP or Name followed by grafana default port 3000.
 
-default username: admin
-default password: admin
-Jenkins Monitoring with Prometheus and Grafana 4
+http://your_ip:3000
+Here you can see Login page of Grafana now you will have to login with below Grafana default UserName and Password.
+
+Username – admin
+Password – admin
+
+
 To visualize metrics, you need to add a data source first.
 
 Jenkins Monitoring with Prometheus and Grafana 5
