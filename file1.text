@@ -1,3 +1,7 @@
+Prometheus is an open-source technology designed to provide monitoring and alerting 
+functionality for cloud-native environments, including jenkins, kubernates etc. 
+It can collect and store metrics as time-series data, recording information with a timestamp.
+##############################################################################################################
 Step #1:Install Prometheus on Linux
 Create a system user for Prometheus using below commnds:
 
